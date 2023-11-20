@@ -8,9 +8,10 @@
 
 
 int main() {
-    Clase* clases;
-    Usuario * cliente;
-    Asistencia* asist;
+    /*
+    Clase* clases = new Clase[1];
+    Usuario * cliente = new Usuario [1];
+    Asistencia* asist = new Asistencia[1];
     unsigned int cantCliente;
     unsigned int tam=1;
 
@@ -61,11 +62,11 @@ int main() {
 
                     case 1:
 
-                        error =  anotarClase (&clases, asist, idClase);
+                        error =  anotarClase (clases, asist, idClase);
                         break;
 
                     case 2:
-                        error = bajarClase (&clases, asist, idClase);
+                        error = bajarClase (clases, asist, idClase);
                         break;
 
                     default:
@@ -125,4 +126,5 @@ int main() {
         //eliminar el de inscripciones
         return 0;
     }
+*/
 }

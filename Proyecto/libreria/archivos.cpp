@@ -59,22 +59,21 @@ int resizei(Inscripcion *& cliente, int tam){
 }
 
 
-code control(Asistencia *asist, Clase *clase){
-    code p = EXITO;
-    code a;
+code control(Asistencia *&asist, Clase *&clase){
+    code controlador = EXITO;
 
     for (unsigned int i =0; i<asist->cantClases; i++){
         for (unsigned int j = i+1; j<asist->cantClases; i++){
 
             if (clase[asist->clases[j].idCurso -1].horario == clase[asist->clases[i].idCurso -1].horario){ //Comprobamos que no haya sobreposición  de horario
                 int h= (asist->clases[j].fechaInscripcion < asist->clases[i].fechaInscripcion)?i:j;
-                a = bajarClase (clase, asist, asist->clases[h].idCurso);
+                code a = bajarClase(clase, asist, asist->clases[h].idCurso);
                 if (a !=EXITO)
-                    p=a;
+                    controlador=a;
             }
         }
     }
-    return p;
+    return controlador;
 }
 
 

@@ -2,6 +2,7 @@
 #define ARCHIVO_H
 #include "global.h"
 #include "clases.h"
+#include "usuario.h"
 #include <stdio.h>
 #include <fstream>
 #include <sstream>

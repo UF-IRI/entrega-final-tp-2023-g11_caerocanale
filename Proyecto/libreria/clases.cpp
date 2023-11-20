@@ -8,7 +8,7 @@ bool espacio(Clase clase, unsigned int h){
     return (ocupado[h] - clase.cupoActual > 0);
 }
 
-code anotarClase (Clase *clase, Asistencia *asist, unsigned int idClase){
+code anotarClase (Clase *&clase, Asistencia *&asist, unsigned int idClase){
     if (idClase>60)
         return::REFERENCIA_ERRONEA;
     if (clase[idClase-1].id == idClase){
@@ -32,7 +32,7 @@ code anotarClase (Clase *clase, Asistencia *asist, unsigned int idClase){
     return::REFERENCIA_ERRONEA;
 }
 
-code bajarClase (Clase *&clase, Asistencia *asist, unsigned int idClase){
+code bajarClase (Clase *&clase, Asistencia *&asist, unsigned int idClase){
     if (idClase>60)
         return::REFERENCIA_ERRONEA;
     if (clase[idClase-1].id == idClase){
