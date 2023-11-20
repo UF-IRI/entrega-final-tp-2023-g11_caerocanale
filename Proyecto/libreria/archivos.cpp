@@ -1,6 +1,4 @@
 #include "archivos.h"
-#include "global.h"
-#include "clases.h"
 
 int resizec(Clase *&clases, int tam){
 
@@ -169,4 +167,23 @@ code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int CantAsisten
         }
     }
     return code::EXITO;
+}
+
+void errores(code codigo){
+    ifstream arch;
+    string line;
+    int i=-1;
+    arch.open("codgiosErrores.txt");
+
+    if (arch.is_open()){
+        do{
+            getline(arch, line);
+            i++;
+        } while((int)codigo != i);
+
+        cout << line << endl;
+    }
+    else
+        cout<< "Error no encontrado" << endl;
+    return;
 }

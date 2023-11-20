@@ -1,14 +1,11 @@
 #include "archivos.h"
 #include "clases.h"
 #include "usuario.h"
-
-
-
 #include "global.h"
 
 
 int main() {
-    /*
+
     Clase* clases = new Clase[1];
     Usuario * cliente = new Usuario [1];
     Asistencia* asist = new Asistencia[1];
@@ -27,13 +24,14 @@ int main() {
     arch.open("asistenciasGYM.dat",ios::binary);
     arch.close();
 
+
     bool menu = 1;
-    bool seguridad;
-    unsigned int horario;
+    bool seguridad=0;
+    float horario;
     string eleccion;
-    int error;
+    code error;
     while (menu){
-        cout << "Usted pertenece a 1.Clase, 2.Musculito ?" << endl;
+        cout << "Usted pertenece a 1.Clase, o desea 2.Registrarse ?" << endl;
         int ref;
         cin >> ref;
 
@@ -51,7 +49,6 @@ int main() {
                 cout << "Escriba el horario a anotarse: ";
 
                 cin >> horario;
-                horario -= 8;
 
                 //El cliente ingresa los datos de las clases y comparamos lo escrito con datos pregrabados del dia y el tipo de clase a anotarse
                 if(horario>=7&& horario<=21){
@@ -71,33 +68,11 @@ int main() {
 
                     default:
                         cout << "No es una opcion, vuelva a intentar" << endl;
+                        error = (code)9;
                     }
 
+                    errores(error);
 
-                    switch (error){
-                    case HORARIO_LIBRE:
-                        cout  << "Lo sentimos, pero parece que usted no se encuentra anotado a ninguna clase de las " << horario+8 <<"hs"<<endl;
-                        break;
-
-                    case CLASE_CERRADA:
-                        cout << "La clase de las "<<horario+8<<"hs se encuentra completa, o no se  da en ese horario, lo lamentamos" << endl;
-                        break;
-
-                    case HORARIO_OCUPADO:
-                        cout  << "Lo sentimos, pero parece que usted ya se encuentra anotado a una clase a las " << horario+8 <<"hs "<< endl;
-                        break;
-
-                    case REFERENCIA_ERRONEA:
-                        cout << "Hubo un error al revisar sus datos, por favor, vuelva a intentarlo" << endl;
-                        break;
-
-                    case EXITO:
-                        cout << "La funcion se ha completado con exito";
-                        break;
-
-                    default:
-                        break;
-                    }
 
                     cout << "Desea registrarse o darse de baja de otra clase? 1.si 0.no" << endl;
 
@@ -107,14 +82,31 @@ int main() {
                 break;
 
             case 2:
+            {
+                string apellido, nombre;
+                string email, telefono;
+                str nac;
+                cout << "Ingrese su nombre: ";
+                cin >> nombre;
+                cout << "Ingrese su apellido: ";
+                cin >> apellido;
+                cout << "Ingrese su email: ";
+                cin >> email;
+                cout << "Ingrese su telefono: ";
+                cin >> telefono;
+                cout << "Ingrese su fecha de nacimiento en el siguiente formato: ";
+                cout << "dia-mes-anio";
+                cin >> nombre;
+                unsigned int cant=0;
+                error = agregarUsuario (cliente, asist, cant, apellido, nombre, email, telefono, nac, 0);
 
                 break;
-
+            }
             default:
                 cout << "No es una opcion, vuelva a intentar" << endl;
             }
 
-            cout << "Quiere hacer otro cambio? 1.Si 0.No";
+            cout << "Quiere hacer algo mas? 1.Si 0.No";
             cin >> menu;
         }
 
@@ -122,9 +114,11 @@ int main() {
         //Borrar las memorias dinamicas.
         delete []cliente;
         delete []clases;
+        for (unsigned int i=0; i<asist->cantClases; i++)
+            delete asist[i].clases;
         delete []asist;
         //eliminar el de inscripciones
         return 0;
     }
-*/
+
 }

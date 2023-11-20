@@ -7,7 +7,7 @@ code agregarUsuario(Usuario *cliente,Asistencia* asist, unsigned int &cantClient
         *fin = &cliente[cantCliente-1];
 
     while(true){
-        if(ini->email == email) //Revisemos que no este registrado ya su mail
+        if(ini->email == email || ini->telefono == telefono) //Revisemos que no este registrado ya su mail
             return::MAIL_OCUPADO;
 
         if(ini==fin)

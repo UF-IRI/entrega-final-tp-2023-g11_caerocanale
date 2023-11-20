@@ -20,5 +20,7 @@ int resizeu(Usuario *&cliente, int tam);
 int resizea(Asistencia *& cliente, int tam);
 int resizei(Inscripcion *& cliente, int tam);
 
+void errores(code codigo);
+
 #endif // ARCHIVO_H
 

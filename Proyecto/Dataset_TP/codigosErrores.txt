@@ -1,0 +1,7 @@
+Exito en la operacion
+Error al abrir el archivo
+El horario no se encuentra ocupado por una clase actualmente
+La clase se encuentra cerrada
+Usted se ha anotado ya a una clase en el horario
+La clase u horario no corresponde con uno pedido
+Ya se encuentra un usuario registrado con su mail o telefono
