@@ -100,6 +100,8 @@ int main() {
                 unsigned int cant=0;
                 error = agregarUsuario (cliente, asist, cant, apellido, nombre, email, telefono, nac, 0);
 
+                errores(error);
+
                 break;
             }
             default:
