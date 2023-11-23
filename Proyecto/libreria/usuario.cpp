@@ -1,4 +1,5 @@
 #include "usuario.h"
+#include "archivos.h"
 
 code agregarUsuario(Usuario *cliente,Asistencia* asist, unsigned int &cantCliente, str apellido, str nombre, str  email, str telefono, str nac, float cuota)
 {
@@ -16,17 +17,20 @@ code agregarUsuario(Usuario *cliente,Asistencia* asist, unsigned int &cantClient
     }
 
     //añadimos los datos en un espacio vacio
-    cliente[cantCliente].apellido = apellido;
-    cliente[cantCliente].id= cantCliente+1;
-    cliente[cantCliente].nombre = nombre;
-    cliente[cantCliente].email = email;
-    cliente[cantCliente].telefono = telefono;
-    cliente[cantCliente].nac  =  nac;
-    cliente[cantCliente].cuota = cuota;
+    cantCliente = resizeu(cliente, cantCliente);
 
-    asist[cantCliente].idCliente=cantCliente+1;
+    cliente[cantCliente-1].apellido = apellido;
+    cliente[cantCliente-1].id= cantCliente;
+    cliente[cantCliente-1].nombre = nombre;
+    cliente[cantCliente-1].email = email;
+    cliente[cantCliente-1].telefono = telefono;
+    cliente[cantCliente-1].nac  =  nac;
+    cliente[cantCliente-1].cuota = cuota;
 
-    cantCliente++;
+    cantCliente = resizea(asist, cantCliente-1);
+
+    asist[cantCliente-1].idCliente=cantCliente;
+
 
     return::EXITO;
 }
