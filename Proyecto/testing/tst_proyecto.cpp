@@ -13,7 +13,7 @@ TEST_CASE("ARCHIVOS")
 
     cout << error << endl;
     REQUIRE(clase[0].id == 1);
-    REQUIRE(error == EXITO);
+    REQUIRE(error == code::EXITO);
 
     REQUIRE(0 == 0);
     delete []clase;
@@ -64,13 +64,13 @@ TEST_CASE("CLASES"){
 
     REQUIRE(clases[0].cupoActual==2);
     REQUIRE(asist[1].cantClases==1);
-    REQUIRE(error==EXITO);
+    REQUIRE(error==code::EXITO);
 
     error = anotarClase(clases, asist[1], 1);
 
     REQUIRE(clases[0].cupoActual==2);
     REQUIRE(asist[1].cantClases==1);
-    REQUIRE(error==HORARIO_OCUPADO);
+    REQUIRE(error==code::HORARIO_OCUPADO);
     }
 
     SECTION("bajar"){
@@ -79,13 +79,13 @@ TEST_CASE("CLASES"){
 
     REQUIRE(clases[1].cupoActual==0);
     REQUIRE(asist[0].cantClases==1);
-    REQUIRE(error==EXITO);
+    REQUIRE(error==code::EXITO);
 
     error = bajarClase(clases, asist[0], 2);
 
     REQUIRE(clases[1].cupoActual==0);
     REQUIRE(asist[0].cantClases==1);
-    REQUIRE(error==HORARIO_LIBRE);
+    REQUIRE(error==code::HORARIO_LIBRE);
     }
 
     SECTION("Info clases"){
@@ -94,6 +94,7 @@ TEST_CASE("CLASES"){
     REQUIRE(id==1);
 
     }
+
 
 
     delete []clases;
