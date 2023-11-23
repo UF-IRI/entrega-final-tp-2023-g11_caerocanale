@@ -19,8 +19,8 @@ struct sclases {
 typedef enum eCode code;
 
 
-code anotarClase (Clase *&clases, Asistencia *&asist, float horario);
-code bajarClase (Clase *&clases, Asistencia *&asist, unsigned int idClase);
+code anotarClase (Clase *&clases, Asistencia &asist, unsigned int idClase);
+code bajarClase (Clase *&clases, Asistencia &asist, unsigned int idClase);
 int BuscarIdClases(Clase *clases, int horario, str nombre);
 bool espacio(Clase clase, unsigned int h);
 unsigned int cupoactual(Clase *& clases, unsigned int idclase, unsigned int cantAsistencias);

@@ -57,15 +57,15 @@ int resizei(Inscripcion *& cliente, int tam){
 }
 
 
-code control(Asistencia *&asist, Clase *&clase){
+code control(Asistencia &asist, Clase *&clase){
     code controlador = EXITO;
 
-    for (unsigned int i =0; i<asist->cantClases; i++){
-        for (unsigned int j = i+1; j<asist->cantClases; i++){
+    for (unsigned int i =0; i<asist.cantClases; i++){
+        for (unsigned int j = i+1; j<asist.cantClases; i++){
 
-            if (clase[asist->clases[j].idCurso -1].horario == clase[asist->clases[i].idCurso -1].horario){ //Comprobamos que no haya sobreposición  de horario
-                int h= (asist->clases[j].fechaInscripcion < asist->clases[i].fechaInscripcion)?i:j;
-                code a = bajarClase(clase, asist, asist->clases[h].idCurso);
+            if (clase[asist.clases[j].idCurso -1].horario == clase[asist.clases[i].idCurso -1].horario){ //Comprobamos que no haya sobreposición  de horario
+                int h= (asist.clases[j].fechaInscripcion < asist.clases[i].fechaInscripcion)?i:j;
+                code a = bajarClase(clase, asist, asist.clases[h].idCurso);
                 if (a !=EXITO)
                     controlador=a;
             }
@@ -87,13 +87,13 @@ code lecturaClases(ifstream &arch, Clase *& clases, unsigned int &tam){
         while(!arch.eof() && getline(arch, linea)){
             aux.clear();
             aux<<linea;
-            tam= resizec(clases,tam);
+            tam++;
             getline(aux, linea, ',');
-            clases[tam-1].id=stoi(linea);//identificador
+            clases[tam-1].id=stoul(linea);//identificador
             getline(aux, linea, ',');
             clases[tam-1].nombre=linea;//Nombre de la clase
             getline(aux,linea);
-            clases[tam-1].horario=stoi(linea);//Turno de la clase
+            clases[tam-1].horario=stof(linea);//Turno de la clase
         }
         return code::EXITO;
     }
@@ -113,10 +113,10 @@ code lecturaClientes(ifstream &arch, Usuario *& cliente , unsigned int &cantClie
         while(!arch.eof() && getline(arch, linea)){
             aux.clear();
             aux<<linea;
+            cantCliente++;
 
-            cantCliente= resizeu(cliente, cantCliente);
             getline(aux, linea, ',');
-            cliente[cantCliente-1].id=stoi(linea);
+            cliente[cantCliente-1].id=stoul(linea);
 
             getline(aux, linea, ',');
             cliente[cantCliente-1].nombre=linea;
@@ -134,26 +134,27 @@ code lecturaClientes(ifstream &arch, Usuario *& cliente , unsigned int &cantClie
             cliente[cantCliente-1].nac=linea;//Turno de la clase
 
             getline(aux, linea, ',');
-            cliente[cantCliente-1].cuota=stoi(linea);
+            cliente[cantCliente-1].cuota=stof(linea);
 
 
         }
+        return code::EXITO;
     }
-    return code::EXITO;
+    return code::ARCHIVOFALLO;
 }
 
 
-code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int CantAsistencia) {
+code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int &CantAsistencia) {
     unsigned int i = 0;
 
     if (arch.is_open()) {
         arch.clear();
         arch.seekg(0);
-        while (i < CantAsistencia && !arch.eof()) {
+        while (!arch.eof()) {
             arch.read((char*)(&asist[i].idCliente), sizeof(unsigned int));
             arch.read((char*)(&asist[i].cantClases), sizeof(unsigned int));
             resizea(asist, i); //HACER UN RESIZE PARA ASISTENCIA
-            asist[i].cantClases++;
+            CantAsistencia++;
 
             for (unsigned int j = 0; j < asist[i].cantClases; j++) {
                 arch.read((char*)(&asist[i].clases[j].idCurso), sizeof(unsigned int));
@@ -162,28 +163,28 @@ code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int CantAsisten
                 // Verificar si es necesario incrementar el tamaño del arreglo de Inscripcion
                 resizei(asist[i].clases, j); //IDEM ARRIBA
             }
-
             i++;
         }
+        return code::EXITO;
     }
-    return code::EXITO;
+    return code::ARCHIVOFALLO;
 }
 
 void errores(code codigo){
     ifstream arch;
     string line;
     int i=-1;
-    arch.open("codgiosErrores.txt");
+    arch.open("../../Proyecto/Datatset_TP/codigosErrores.txt");
 
     if (arch.is_open()){
         do{
             getline(arch, line);
             i++;
-        } while((int)codigo != i);
+        } while((int)codigo != i && !arch.eof());
 
         cout << line << endl;
     }
     else
-        cout<< "Error no encontrado" << endl;
+        cout<< "Error al abrir" << endl;
     return;
 }

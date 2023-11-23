@@ -5,31 +5,40 @@
 
 
 int main() {
-
-    Clase* clases = new Clase[1];
-    Usuario * cliente = new Usuario [1];
-    Asistencia* asist = new Asistencia[1];
-    unsigned int cantCliente;
-    unsigned int tam=1;
-
+/*
+    Clase clase;
+    Clase* clases = &clase;
+    Usuario  usua;
+    Usuario * cliente = &usua;
+    Asistencia asistencia;
+    Asistencia* asist = &asistencia;
+    unsigned int cantCliente =0;
+    unsigned int tam=0;
+    unsigned int cantAsist = 0;
+    code error;
 
     //abro archivos
     ifstream arch;
-    arch.open("clasesGYM.csv",ios::in);
-    lecturaClases(arch,clases,tam);
+    arch.open("../../Proyecto/Datatset_TP/iriClasesGYM.csv",ios::in);
+    error = lecturaClases(arch,clases,tam);
     arch.close();
-    arch.open("clientesGYM.csv",ios::in);
-    lecturaClientes(arch,cliente,cantCliente);
+
+    arch.open("../../Proyecto/Datatset_TP/iriClientesGYM.csv",ios::in);
+    error = lecturaClientes(arch,cliente,cantCliente);
     arch.close();
-    arch.open("asistenciasGYM.dat",ios::binary);
+
+    arch.open("../../Proyecto/Datatset_TP/asistencias_1697673600000.dat",ios::binary);
+    error = leerAsistencia(arch, asist, cantAsist);
     arch.close();
+
+    errores(error);
 
 
     bool menu = 1;
     bool seguridad=0;
     float horario;
     string eleccion;
-    code error;
+
     while (menu){
         cout << "Usted pertenece a 1.Clase, o desea 2.Registrarse ?" << endl;
         int ref;
@@ -68,7 +77,7 @@ int main() {
 
                     default:
                         cout << "No es una opcion, vuelva a intentar" << endl;
-                        error = (code)9;
+                        error = (code)5;
                     }
 
                     errores(error);
@@ -112,15 +121,14 @@ int main() {
             cin >> menu;
         }
 
-
-        //Borrar las memorias dinamicas.
-        delete []cliente;
-        delete []clases;
-        for (unsigned int i=0; i<asist->cantClases; i++)
-            delete asist[i].clases;
-        delete []asist;
-        //eliminar el de inscripciones
-        return 0;
     }
-
+    //Borrar las memorias dinamicas.
+    delete []cliente;
+    delete []clases;
+    for (unsigned int i=0; i<asist->cantClases; i++)
+        delete asist[i].clases;
+    delete []asist;
+    //eliminar el de inscripciones
+    return 0;
+    */
 }

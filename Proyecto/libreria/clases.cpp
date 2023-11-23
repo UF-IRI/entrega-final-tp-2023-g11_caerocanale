@@ -8,7 +8,7 @@ bool espacio(Clase clase, unsigned int h){
     return (ocupado[h] - clase.cupoActual > 0);
 }
 
-code anotarClase (Clase *&clase, Asistencia *&asist, unsigned int idClase){
+code anotarClase (Clase *&clase, Asistencia &asist, unsigned int idClase){
     if (idClase>60)
         return::REFERENCIA_ERRONEA;
     if (clase[idClase-1].id == idClase){
@@ -18,29 +18,29 @@ code anotarClase (Clase *&clase, Asistencia *&asist, unsigned int idClase){
         if(!espacio(clase[idClase-1], h))
             return::CLASE_CERRADA;
 
-        for (unsigned int i=0; i<asist->cantClases; i++){
-            if(asist->clases[i].idCurso == idClase)
+        for (unsigned int i=0; i<asist.cantClases; i++){
+            if(asist.clases[i].idCurso == idClase)
                 return::HORARIO_OCUPADO;
         }
 
         clase[idClase-1].cupoActual++;
-        asist->cantClases++;
-        asist->clases[asist->cantClases -1].idCurso = idClase;
-        asist->clases[asist->cantClases -1].fechaInscripcion = time_t(0);
+        asist.cantClases++;
+        asist.clases[asist.cantClases -1].idCurso = idClase;
+        asist.clases[asist.cantClases -1].fechaInscripcion = time_t(0);
         return::EXITO;
     }
     return::REFERENCIA_ERRONEA;
 }
 
-code bajarClase (Clase *&clase, Asistencia *&asist, unsigned int idClase){
+code bajarClase (Clase *&clase, Asistencia &asist, unsigned int idClase){
     if (idClase>60)
         return::REFERENCIA_ERRONEA;
     if (clase[idClase-1].id == idClase){
-        for (unsigned int i=0; i<asist->cantClases; i++){
-            if(asist->clases[i].idCurso == idClase){
-                for (unsigned int j=i; j<asist->cantClases-1; j++){
-                    asist->clases[j].idCurso= asist->clases[j+1].idCurso;
-                    asist->clases[j].fechaInscripcion= asist->clases[j+1].fechaInscripcion;
+        for (unsigned int i=0; i<asist.cantClases; i++){
+            if(asist.clases[i].idCurso == idClase){
+                for (unsigned int j=i; j<asist.cantClases-1; j++){
+                    asist.clases[j].idCurso= asist.clases[j+1].idCurso;
+                    asist.clases[j].fechaInscripcion= asist.clases[j+1].fechaInscripcion;
                 }
                 clase[idClase-1].cupoActual--;
                 return::EXITO;
