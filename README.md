@@ -1,10 +1,10 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/LU25kJIG)
 # G***NroGrupo***_***Apellido1******Apellido2***
-  "Breve descripción del trabajo"
+  "Sistema de clases para el gimnasio "Musculito"."
 
 ## Integrantes
-- Alumno 1
-- Alumno 2
+- Caero Lucila
+- Canale Lautaro
 
 ## Objetivo del proyecto
 "Descripción del problema y el objetivo del desarrollo del proyecto"
