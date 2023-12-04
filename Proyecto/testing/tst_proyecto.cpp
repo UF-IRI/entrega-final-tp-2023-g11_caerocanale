@@ -1,25 +1,36 @@
 #include "catch2/catch.hpp"
 #include "archivos.h"
+<<<<<<< Updated upstream
+=======
+#include "usuario.h"
+
+
+>>>>>>> Stashed changes
 
 TEST_CASE("ARCHIVOS")
 {
-    ifstream archClases;
-    archClases.open("iriClasesGYM.csv");
-    Clase clases;
-    Clase *clase =  &clases;
+
+    Clase *clase =  new Clase[1];
     unsigned int tam =0;
 
-    code error = lecturaClases(archClases, clase, tam);
+    code error = lecturaClases(&clase, tam);
 
-    cout << error << endl;
     REQUIRE(clase[0].id == 1);
     REQUIRE(error == code::EXITO);
 
-    REQUIRE(0 == 0);
+    Usuario *usu = new Usuario[1];
+    unsigned int clientes=0;
+    error = lecturaClientes(&usu, clientes);
+
+    REQUIRE (usu[0].id == 1);
+    REQUIRE(error == EXITO);
+
+    delete []usu;
     delete []clase;
 }
 
 
+<<<<<<< Updated upstream
 #include "usuario.h"
 #include "clases.h"
 
@@ -33,6 +44,12 @@ TEST_CASE("CLASES"){
     Clase *clases = NULL;
     for (int i =0; i<2; i++)
         clases[i]=clase[i];
+=======
+/*
+TEST_CASE("CLASES"){
+
+
+>>>>>>> Stashed changes
 
 
     Usuario *nuevo = NULL;

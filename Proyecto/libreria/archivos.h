@@ -12,8 +12,8 @@
 
 
 code control(Asistencia *&asist, Clase *clases);
-code lecturaClases(ifstream &arch, Clase *& clases, unsigned int &tam);
-code lecturaClientes(ifstream &arch, Usuario *& cliente , unsigned int &cantCliente);
+code lecturaClases(Clase ** clases, unsigned int &tam);
+code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente);
 code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int CantAsistencia);
 int resizec(Clase *&clases, int tam);
 int resizeu(Usuario *&cliente, int tam);

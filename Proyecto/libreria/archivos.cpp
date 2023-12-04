@@ -75,78 +75,87 @@ code control(Asistencia &asist, Clase *&clase){
 }
 
 
-code lecturaClases(ifstream &arch, Clase *& clases, unsigned int &tam){
-    string linea;
-    stringstream aux;
+code lecturaClases(Clase ** clases, unsigned int &tam){
 
+    ifstream arch("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
+    string linea;
+    char del = ',';
+
+    tam =0;
     if(arch.is_open()){
 
-        string header;
-        getline(arch, header);//Leemos el header
-
-        while(!arch.eof() && getline(arch, linea)){
-            aux.clear();
-            aux<<linea;
+        getline(arch, linea);//Leemos el header
+        while(getline(arch,linea))
             tam++;
-            getline(aux, linea, ',');
-            clases[tam-1].id=stoul(linea);//identificador
-            getline(aux, linea, ',');
-            clases[tam-1].nombre=linea;//Nombre de la clase
-            getline(aux,linea);
-            clases[tam-1].horario=stof(linea);//Turno de la clase
+        arch.close();
+
+
+        Clase *aux = new Clase [tam];
+        if (aux==nullptr)
+            return code::ARCHIVOFALLO;
+
+        arch.open("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
+        getline(arch, linea);
+
+        int i =0;
+        while (getline(arch,linea)){
+            stringstream iss(linea);
+            str dato;
+
+            getline(iss, dato, del);
+            aux[i].id = stoul(dato);
+
+            getline(iss, dato, del);
+            aux[i].nombre = dato;
+
+            getline(iss, dato, del);
+            aux[i].horario = stof(dato);
+
+            i++;
         }
+
+        delete[] *clases;
+
+        *clases = aux;
+
+        arch.close();
+
         return code::EXITO;
     }
     return code::ARCHIVOFALLO;
     //agregar si hay un error
 }
-code lecturaClientes(ifstream &arch, Usuario *& cliente , unsigned int &cantCliente){
 
+code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
+
+    ifstream arch("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
     string linea;
-    stringstream aux;
+    char del = ',';
 
+    cantCliente =0;
     if(arch.is_open()){
 
-        string header;
-        getline(arch, header);//Leemos el header
+        getline(arch, linea);//Leemos el header
         //idCliente,nombre,apellido,email,telefono,fechaNac,estado
-        while(!arch.eof() && getline(arch, linea)){
-            aux.clear();
-            aux<<linea;
+
+        while (getline(arch,linea))
             cantCliente++;
-
-            getline(aux, linea, ',');
-            cliente[cantCliente-1].id=stoul(linea);
-
-            getline(aux, linea, ',');
-            cliente[cantCliente-1].nombre=linea;
-
-            getline(aux, linea, ',');
-            cliente[cantCliente-1].apellido=linea;
-
-            getline(aux, linea, ',');
-            cliente[cantCliente-1].email=linea;
-
-            getline(aux, linea, ',');
-            cliente[cantCliente-1].telefono=linea;
-
-            getline(aux,linea);
-            cliente[cantCliente-1].nac=linea;//Turno de la clase
-
-            getline(aux, linea, ',');
-            cliente[cantCliente-1].cuota=stof(linea);
+        arch.close();
 
 
-        }
-        return code::EXITO;
-    }
-    return code::ARCHIVOFALLO;
-}
+        Usuario *aux = new Usuario [cantCliente];
+        if (aux==nullptr)
+            return code::ARCHIVOFALLO;
 
+        arch.open("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
+        getline(arch, linea);
+        int i = 0;
 
-code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int &CantAsistencia) {
-    unsigned int i = 0;
+        while(getline(arch, linea)){
+            stringstream iss(linea);
+            str dato;
 
+<<<<<<< Updated upstream
     if (arch.is_open()) {
         arch.clear();
         arch.seekg(0);
@@ -155,21 +164,85 @@ code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int &CantAsiste
             arch.read((char*)(&asist[i].cantClases), sizeof(unsigned int));
             resizea(asist, i); //HACER UN RESIZE PARA ASISTENCIA
             CantAsistencia++;
+=======
+            getline(iss, dato, del);
+            aux[i].id=stoul(dato);
+>>>>>>> Stashed changes
 
-            for (unsigned int j = 0; j < asist[i].cantClases; j++) {
-                arch.read((char*)(&asist[i].clases[j].idCurso), sizeof(unsigned int));
-                arch.read((char*)(&asist[i].clases[j].fechaInscripcion), sizeof(time_t));
+            getline(iss, dato, del);
+            aux[i].nombre=dato;
 
+            getline(iss, dato, del);
+            aux[i].apellido=dato;
+
+            getline(iss, dato, del);
+            aux[i].email=dato;
+
+            getline(iss, dato, del);
+            aux[i].telefono=dato;
+
+            getline(iss,dato, del);
+            aux[i].nac=dato;
+
+            getline(iss, dato, del);
+            aux[i].cuota=stof(dato);
+
+<<<<<<< Updated upstream
                 // Verificar si es necesario incrementar el tamaño del arreglo de Inscripcion
                 resizei(asist[i].clases, j); //IDEM ARRIBA
             }
+=======
+>>>>>>> Stashed changes
             i++;
         }
+        arch.close();
+
+        delete[]* cliente;
+        *cliente = aux;
+
         return code::EXITO;
     }
     return code::ARCHIVOFALLO;
 }
 
+
+
+code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases) {
+
+    ifstream arch("../../Proyecto/Dataset_TP/asistencias_1697673600000.dat", ios::binary);
+    unsigned int i =0;
+
+    if (arch.is_open()) {
+        Asistencia *aux = new Asistencia[cantCliente];
+        if(aux==nullptr)
+            return code::ARCHIVOFALLO;
+
+        while (!arch.eof()) {
+
+            arch.read((char*)(&aux[i].idCliente), sizeof(unsigned int));
+            arch.read((char*)(&aux[i].cantClases), sizeof(unsigned int));
+
+            aux[i].clases = new Inscripcion[aux[i].cantClases];
+            //resizei(&aux[i].clases, aux[i].cantClases);
+
+            for (unsigned int j = 0; j < aux[i].cantClases; j++) {
+                arch.read((char*)(&aux[i].clases[j]), sizeof(Inscripcion));
+                clases[aux[i].clases[j].idCurso-1].cupoActual++;
+            }
+            code e = control(aux[i], clases);
+            i++;
+        }
+
+        if (cantCliente != i)
+            cout << "diferencia de usuarios y asistencias por " << (int)i-(int)cantCliente << " usuarios" << endl;
+        arch.close();
+        delete[]* asist;
+        *asist = aux;
+
+        return code::EXITO;
+    }
+    return code::ARCHIVOFALLO;
+}
 void errores(code codigo){
     ifstream arch;
     string line;
