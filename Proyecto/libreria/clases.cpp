@@ -1,14 +1,16 @@
 #include "global.h"
 #include "clases.h"
-#include "usuario.h"
+#include "archivos.h"
 
 
 
 bool espacio(Clase clase, unsigned int h){
+    if (h==7)
+        return false;
     return (ocupado[h] - clase.cupoActual > 0);
 }
 
-code anotarClase (Clase *&clase, Asistencia &asist, unsigned int idClase){
+code anotarClase (Clase *clase, Asistencia &asist, unsigned int idClase){
     if (idClase>60)
         return::REFERENCIA_ERRONEA;
     if (clase[idClase-1].id == idClase){
@@ -24,29 +26,44 @@ code anotarClase (Clase *&clase, Asistencia &asist, unsigned int idClase){
         }
 
         clase[idClase-1].cupoActual++;
-        asist.cantClases++;
+        asist.cantClases = (unsigned int)resizei (&asist.clases, asist.cantClases);
+
         asist.clases[asist.cantClases -1].idCurso = idClase;
-        asist.clases[asist.cantClases -1].fechaInscripcion = time_t(0);
+        asist.clases[asist.cantClases -1].fechaInscripcion = time(nullptr);
         return::EXITO;
     }
     return::REFERENCIA_ERRONEA;
 }
 
-code bajarClase (Clase *&clase, Asistencia &asist, unsigned int idClase){
+code bajarClase (Clase *clase, Asistencia &asist, unsigned int idClase){
     if (idClase>60)
         return::REFERENCIA_ERRONEA;
+
     if (clase[idClase-1].id == idClase){
+
         for (unsigned int i=0; i<asist.cantClases; i++){
+
             if(asist.clases[i].idCurso == idClase){
+                if (asist.cantClases==1){
+                    asist.clases[i].idCurso = -1;
+                    asist.clases[i].fechaInscripcion=-1;
+
+                    asist.cantClases=0;
+                } else {
+
                 for (unsigned int j=i; j<asist.cantClases-1; j++){
                     asist.clases[j].idCurso= asist.clases[j+1].idCurso;
                     asist.clases[j].fechaInscripcion= asist.clases[j+1].fechaInscripcion;
+                }//Luego de bajar la posición en uno de todos para luego reducir el tamaño de asist.clases
+
+                    asist.cantClases = (unsigned int)reduI (&asist.clases, asist.cantClases);
                 }
+
                 clase[idClase-1].cupoActual--;
                 return::EXITO;
             }
-            return::HORARIO_LIBRE;
         }
+        return::HORARIO_LIBRE;
     }
     return::REFERENCIA_ERRONEA;
 }

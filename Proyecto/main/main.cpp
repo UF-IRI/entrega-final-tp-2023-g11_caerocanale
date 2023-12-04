@@ -19,15 +19,15 @@ int main() {
 
     //abro archivos
     ifstream arch;
-    arch.open("../../Proyecto/Datatset_TP/iriClasesGYM.csv",ios::in);
+    arch.open("../../Proyecto/Dataset_TP/iriClasesGYM.csv",ios::in);
     error = lecturaClases(arch,clases,tam);
     arch.close();
 
-    arch.open("../../Proyecto/Datatset_TP/iriClientesGYM.csv",ios::in);
+    arch.open("../../Proyecto/Dataset_TP/iriClientesGYM.csv",ios::in);
     error = lecturaClientes(arch,cliente,cantCliente);
     arch.close();
 
-    arch.open("../../Proyecto/Datatset_TP/asistencias_1697673600000.dat",ios::binary);
+    arch.open("../../Proyecto/Dataset_TP/asistencias_1697673600000.dat",ios::binary);
     error = leerAsistencia(arch, asist, cantAsist);
     arch.close();
 
@@ -131,4 +131,43 @@ int main() {
     //eliminar el de inscripciones
     return 0;
     */
+
+    Clase cl[2] = {
+        {1, "spinning", 8, 0},
+        {2, "spinning", 9, 0}
+    };
+
+    Clase *clase = new Clase[2];
+
+    clase = cl;
+
+    Asistencia asist;
+    asist.idCliente =0;
+    asist.cantClases=0;
+
+    code error = anotarClase(clase, asist, 1);
+    cout << asist.cantClases << "\t" <<  asist.clases[0].idCurso << endl;
+    errores(error);
+    cout << endl << endl;
+
+    error = bajarClase(clase, asist, 1);
+    cout << asist.cantClases << "\t" << asist.clases[0].idCurso << "\t" << asist.clases[1].idCurso <<endl;
+    errores(error);
+    cout << endl << endl;
+
+    error = anotarClase (clase, asist, 2);
+    cout << asist.cantClases <<"\t"<< asist.clases[0].idCurso << "\t" << asist.clases[1].idCurso << endl;
+    errores(error);
+    cout << endl << endl;
+
+
+
+
+    error = anotarClase (clase, asist, 2);
+    cout << asist.cantClases <<"\t"<< asist.clases[0].idCurso << "\t" << asist.clases[1].idCurso << endl;
+    errores(error);
+    cout << endl << endl;
+
+
+    return 0;
 }

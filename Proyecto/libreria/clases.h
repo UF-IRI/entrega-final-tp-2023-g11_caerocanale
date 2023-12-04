@@ -6,6 +6,7 @@
 
 
 
+
 const string clases[6] = {"spinning", "yoga", "pilates", "stretching", "zumba", "boxeo"};
 const int ocupado [6]={45, 25, 15,  40, 50, 30};
 
@@ -19,8 +20,8 @@ struct sclases {
 typedef enum eCode code;
 
 
-code anotarClase (Clase *&clases, Asistencia &asist, unsigned int idClase);
-code bajarClase (Clase *&clases, Asistencia &asist, unsigned int idClase);
+code anotarClase (Clase *clases, Asistencia &asist, unsigned int idClase);
+code bajarClase (Clase *clases, Asistencia &asist, unsigned int idClase);
 int BuscarIdClases(Clase *clases, int horario, str nombre);
 bool espacio(Clase clase, unsigned int h);
 unsigned int cupoactual(Clase *& clases, unsigned int idclase, unsigned int cantAsistencias);
