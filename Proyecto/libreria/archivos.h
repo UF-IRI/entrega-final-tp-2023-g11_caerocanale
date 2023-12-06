@@ -14,11 +14,13 @@
 code control(Asistencia *&asist, Clase *clases);
 code lecturaClases(Clase ** clases, unsigned int &tam);
 code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente);
-code leerAsistencia(ifstream& arch, Asistencia *&asist, unsigned int CantAsistencia);
-int resizec(Clase *&clases, int tam);
-int resizeu(Usuario *&cliente, int tam);
-int resizea(Asistencia *& cliente, int tam);
-int resizei(Inscripcion *& cliente, int tam);
+code leerAsistencia( Asistencia **asist, unsigned int cantCliente);
+
+
+int resizea(Asistencia ** asist, int tam);
+int resizei(Inscripcion **ins, int tam);
+int resizec(Clase **clases, int tam);
+int resizeu(Usuario **usu, int tam);
 
 void errores(code codigo);
 

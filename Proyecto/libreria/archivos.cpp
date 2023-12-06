@@ -1,61 +1,60 @@
 #include "archivos.h"
 
-int resizec(Clase *&clases, int tam){
+int resizea(Asistencia ** asist, int tam){
 
-    clases = new Clase[tam];
+    Asistencia *nueva = new Asistencia[tam+1];
+
+    for (int i = 0; i <tam; i++){
+        nueva[i] = *asist[i];
+    }
+    delete []*asist;
+    *asist = nueva;
+    return tam+1;
+}
+int resizei(Inscripcion **ins, int tam){
+
+    Inscripcion *nueva = new Inscripcion[tam+1];
+
+    for (int i = 0; i <tam; i++){
+        nueva[i] = *ins[i];
+
+    }
+    delete[] *ins;
+    *ins = nueva;
+    return tam+1;
+}
+
+int resizec(Clase **clases, int tam){
+
     Clase *nueva = new Clase[tam+1]; //Creamos nueva estructura con la cantidad deseada
 
     for (int i = 0; i <tam; i++) //Cargamos la estructura nueva
-        nueva[i] = clases[i];
+        nueva[i] = *clases[i];
 
 
-    delete []clases; //Borramos la vieja
+    delete []*clases; //Borramos la vieja
 
-    clases = nueva; // Apuntamos la estructura hacia la posicion de la nueva, con el tamaño deseado
+    *clases = nueva; // Apuntamos la estructura hacia la posicion de la nueva, con el tamaño deseado
     //nueva queda en la ram hasta el infinito?
 
     return tam+1;
 }
-int resizeu(Usuario *&cliente, int tam){
+
+int resizeu(Usuario **usu, int tam){
     //Revisar resize de Clase, es igual pero con Usuario
-    cliente = new Usuario[tam];
+
     Usuario *nueva = new Usuario[tam+1];
 
     for (int i = 0; i <tam; i++){
-        nueva[i] = cliente[i];
+        nueva[i] = *usu[i];
     }
 
-    delete []cliente;
+    delete []*usu;
 
-    cliente = nueva;
+    *usu = nueva;
 
     return tam+1;
 }
-int resizea(Asistencia *& cliente, int tam){
-    //Revisar resize de Clase, es igual pero con Usuario
-    cliente = new Asistencia[tam];
-    Asistencia *nueva = new Asistencia[tam+1];
-
-    for (int i = 0; i <tam; i++){
-        nueva[i] = cliente[i];
-    }
-    delete []cliente;
-    cliente = nueva;
-    return tam+1;
-}
-int resizei(Inscripcion *& cliente, int tam){
-    //Revisar resize de Clase, es igual pero con Usuario
-    cliente = new Inscripcion[tam];
-    Inscripcion *nueva = new Inscripcion[tam+1];
-
-    for (int i = 0; i <tam; i++){
-        nueva[i] = cliente[i];
-    }
-    delete []cliente;
-    cliente = nueva;
-    return tam+1;
-}
-
 
 code control(Asistencia &asist, Clase *&clase){
     code controlador = EXITO;
@@ -125,7 +124,6 @@ code lecturaClases(Clase ** clases, unsigned int &tam){
     return code::ARCHIVOFALLO;
     //agregar si hay un error
 }
-
 code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
 
     ifstream arch("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
@@ -155,19 +153,8 @@ code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
             stringstream iss(linea);
             str dato;
 
-<<<<<<< Updated upstream
-    if (arch.is_open()) {
-        arch.clear();
-        arch.seekg(0);
-        while (!arch.eof()) {
-            arch.read((char*)(&asist[i].idCliente), sizeof(unsigned int));
-            arch.read((char*)(&asist[i].cantClases), sizeof(unsigned int));
-            resizea(asist, i); //HACER UN RESIZE PARA ASISTENCIA
-            CantAsistencia++;
-=======
             getline(iss, dato, del);
             aux[i].id=stoul(dato);
->>>>>>> Stashed changes
 
             getline(iss, dato, del);
             aux[i].nombre=dato;
@@ -187,12 +174,6 @@ code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
             getline(iss, dato, del);
             aux[i].cuota=stof(dato);
 
-<<<<<<< Updated upstream
-                // Verificar si es necesario incrementar el tamaño del arreglo de Inscripcion
-                resizei(asist[i].clases, j); //IDEM ARRIBA
-            }
-=======
->>>>>>> Stashed changes
             i++;
         }
         arch.close();
@@ -204,8 +185,6 @@ code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
     }
     return code::ARCHIVOFALLO;
 }
-
-
 
 code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases) {
 
@@ -229,7 +208,7 @@ code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases
                 arch.read((char*)(&aux[i].clases[j]), sizeof(Inscripcion));
                 clases[aux[i].clases[j].idCurso-1].cupoActual++;
             }
-            code e = control(aux[i], clases);
+            // code e = control(aux[i], clases);
             i++;
         }
 
@@ -247,7 +226,7 @@ void errores(code codigo){
     ifstream arch;
     string line;
     int i=-1;
-    arch.open("../../Proyecto/Datatset_TP/codigosErrores.txt");
+    arch.open("../../Proyecto/Dataset_TP/codigosErrores.txt");
 
     if (arch.is_open()){
         do{

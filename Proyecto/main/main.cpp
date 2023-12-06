@@ -131,4 +131,19 @@ int main() {
     //eliminar el de inscripciones
     return 0;
     */
+    Clase *clase =  new Clase[1];
+    unsigned int tam =0;
+
+    code error = lecturaClases(&clase, tam);
+
+    errores(error);
+
+    Usuario *usu = new Usuario[1];
+    unsigned int clientes=0;
+    error = lecturaClientes(&usu, clientes);
+
+    errores(error);
+
+    delete []usu;
+    delete []clase;
 }

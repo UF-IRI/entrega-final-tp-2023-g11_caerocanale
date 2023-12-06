@@ -25,5 +25,5 @@ struct susuario {
 }; typedef struct susuario Usuario;
 
 
-code agregarUsuario(Usuario *cliente,Asistencia* asist, unsigned int &cantCliente, str apellido, str nombre, str  email, str telefono, str nac, float cuota);
+code agregarUsuario(Usuario *cliente,Asistencia* asist, unsigned int &cantCliente, Usuario nuevo);
 #endif // USUARIO_H
