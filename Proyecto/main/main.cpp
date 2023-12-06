@@ -138,11 +138,18 @@ int main() {
 
     errores(error);
 
+    for (unsigned int i = 0; i < 10; i++)
+        cout << clase[i].id << "\t" << clase[i].nombre << endl;
+
+    cout << endl << endl;
     Usuario *usu = new Usuario[1];
     unsigned int clientes=0;
     error = lecturaClientes(&usu, clientes);
 
     errores(error);
+
+    for (int i = 0; i < 10 ; i++)
+        cout << usu[i].id << "\t" << usu[i].apellido << endl;
 
     delete []usu;
     delete []clase;

@@ -126,7 +126,7 @@ code lecturaClases(Clase ** clases, unsigned int &tam){
 }
 code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
 
-    ifstream arch("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
+    ifstream arch("../../Proyecto/Dataset_TP/iriClientesGYM.csv");
     string linea;
     char del = ',';
 
@@ -145,7 +145,7 @@ code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
         if (aux==nullptr)
             return code::ARCHIVOFALLO;
 
-        arch.open("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
+        arch.open("../../Proyecto/Dataset_TP/iriClientesGYM.csv");
         getline(arch, linea);
         int i = 0;
 
