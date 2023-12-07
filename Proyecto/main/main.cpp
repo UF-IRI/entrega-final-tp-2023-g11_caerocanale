@@ -28,19 +28,14 @@ int main() {
 
 
 
-
+    int ref;
     bool menu = 1;
     bool seguridad=0;
     float horario;
     string eleccion;
 
     while (menu){
-        cout << "Usted pertenece a 1.Clase, o desea 2.Registrarse ?" << endl;
-        int ref;
-        cin >> ref;
 
-        switch (ref){
-            case 1:
                 unsigned int id;
                 cout << "Ingrese su numero de identificacion que se le asisgno: ";
                 cin >> id;
@@ -83,43 +78,12 @@ int main() {
                         cin >> seguridad;
                     }
                 }while (seguridad);
-                    break;
-
-                case 2: //EN CASO DE NO FUNCIONAR ELIMINAR
-                {
-                    Usuario nuevo;
-                    string apellido, nombre;
-                    string email, telefono;
-                    str nac;
-                    cout << "Ingrese su nombre: ";
-                    cin >> nuevo.nombre;
-                    cout << "Ingrese su apellido: ";
-                    cin >> nuevo.apellido;
-                    cout << "Ingrese su email: ";
-                    cin >> nuevo.email;
-                    cout << "Ingrese su telefono: ";
-                    cin >> nuevo.telefono;
-                    cout << "Ingrese su fecha de nacimiento en el siguiente formato: ";
-                    cout << "dia-mes-anio";
-                    cin >> nuevo.nac;
-
-                    error = agregarUsuario (cliente, asist, cantCliente, nuevo);
-                    errores(error);
-
-                    cout << "Su numero de identificacion es " << cantCliente << " es importante que lo recuerde";
-
-                    error = escribirUsuario(cliente[cantCliente-1]);
-
-                    break;
-                }
-                default:
-                cout << "No es una opcion, vuelva a intentar" << endl;
+                break;
 
             cout << "Quiere hacer algo mas? 1.Si 0.No";
             cin >> menu;
         }
 
-    }
     error = escribirAsistencia(asist, cantCliente);
     errores(error);
 
@@ -128,12 +92,5 @@ int main() {
     for (unsigned int i=0; i<cantCliente; i++)
         delete asist[i].clases;
     delete []asist;
-    return 0;
-
-
-
-
-
-
     return 0;
 }

@@ -25,5 +25,4 @@ struct susuario {
 }; typedef struct susuario Usuario;
 
 
-code agregarUsuario(Usuario *cliente,Asistencia *asist, unsigned int &cantCliente, Usuario nuevo);
 #endif // USUARIO_H
