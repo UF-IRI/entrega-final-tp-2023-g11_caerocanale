@@ -1,8 +1,18 @@
 #include "usuario.h"
 #include "archivos.h"
 
-code agregarUsuario(Usuario **cliente,Asistencia** asist, unsigned int &cantCliente, Usuario nuevo)
+code agregarUsuario(Usuario **cliente,Asistencia **asist, unsigned int &cantCliente, Usuario nuevo)
 {
+    if (cantCliente==0){
+        *cliente[0] = nuevo;
+        cliente[0]->id = 1;
+
+        asist[0]->clases = new Inscripcion[1];
+        asist[0]->idCliente = 1;
+
+        cantCliente++;
+        return EXITO;
+    }
 
     Usuario *ini  = cliente[0],
         *fin = cliente[cantCliente-1];
@@ -17,12 +27,34 @@ code agregarUsuario(Usuario **cliente,Asistencia** asist, unsigned int &cantClie
     }
 
 
-    //añadimos los datos en un espacio vacio
-    cantCliente = resizeu(cliente, cantCliente);
-    cliente[cantCliente-1]->id = cantCliente;
 
-    cantCliente = resizea(asist, cantCliente-1);
-    asist[cantCliente-1]->idCliente=cantCliente;
+    Usuario *aux = new Usuario[cantCliente+1];
+    for (unsigned int i=0; i<cantCliente; i++)
+        aux[i] = *cliente[i];
+
+    aux[cantCliente] = nuevo;
+    aux[cantCliente].id = cantCliente+1;
+
+
+    Asistencia *aux2 = new Asistencia[cantCliente+1];
+    for (unsigned int i=0; i<cantCliente; i++)
+        aux2[i] = *asist[i];
+
+    aux2[cantCliente].idCliente = cantCliente+1;
+    aux2[cantCliente].clases = new Inscripcion[1];
+
+    delete[] *cliente;
+    *cliente = aux;
+
+    for(unsigned int i=0; i<cantCliente; i++)
+        delete[] asist[i]->clases;
+
+    delete[] *asist;
+
+    *asist = aux2;
+
+
+    cantCliente++;
 
     return::EXITO;
 }

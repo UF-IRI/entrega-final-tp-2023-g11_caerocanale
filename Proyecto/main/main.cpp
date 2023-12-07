@@ -136,28 +136,37 @@ int main() {
     Usuario *usu = new Usuario[1];
     Asistencia *asi = new Asistencia[1];
     unsigned int tam =0;
-    unsigned int cantClientes = 1;
+    unsigned int cantClientes = 0;
 
     code error = lecturaClases(&clase, tam);
 
+    for (unsigned int i = 0; i<10; i++)
+        cout << clase[i].id << "\t" << clase[i].nombre << endl;
+
+    Usuario nuevo = {1, "Caero", "Lucila", "caero@gmail", "1123233", "2-12-2003", 0};
+    Usuario nuevo2 = {1, "Canale", "Lautaro", "laezca@gmail", "11232233", "2-12-2003", 0};
+
+
+
+
+    error = agregarUsuario(&usu, &asi, cantClientes, nuevo);
+    errores(error);
+    cout << asi[0].idCliente << "\t" << usu[0].apellido << endl;
+
+    error = agregarUsuario(&usu, &asi, cantClientes, nuevo2);
     errores(error);
 
-     Usuario nuevo = {1, "Canale", "Lautaro", "laezca@gmail", "11232233", "2-12-2003", 0};
-    usu[0] = nuevo;
-
-    asi[0].idCliente = 1;
+    cout << asi[0].idCliente << "\t" << usu[0].apellido << endl;
+    cout << asi[1].idCliente << "\t" << usu[1].apellido << endl;
 
 
     error = anotarClase(clase, asi[0],5);
     errores(error);
+    cout << asi[0].clases[0].idCurso << endl << endl;
 
-    error = escribirAsistencia(asi, cantClientes);
+    error = escribirAsistencia(asi,cantClientes);
     errores(error);
 
-    error = leerAsistencia(&asi, cantClientes, clase);
-
-    cout << asi[0].clases[0].idCurso << endl;
-    errores(error);
 
     delete[] clase;
     for (unsigned int i =0; i<cantClientes; i++)

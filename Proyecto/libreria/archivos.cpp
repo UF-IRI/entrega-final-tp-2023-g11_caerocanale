@@ -9,6 +9,7 @@ str fecha = to_string(now->tm_year+1900) + to_string(now->tm_mon+1) + to_string(
 int resizea(Asistencia ** asist, int tam){
 
     Asistencia *nueva = new Asistencia[tam+1];
+
     for (int i = 0; i <tam; i++)
         nueva[i] = *asist[i];
 
@@ -58,7 +59,6 @@ int resizec(Clase **clases, int tam){
 }
 
 int resizeu(Usuario **usu, int tam){
-    //Revisar resize de Clase, es igual pero con Usuario
 
     Usuario *nueva = new Usuario[tam+1];
 
@@ -238,7 +238,7 @@ code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases
 
 
 code escribirAsistencia(Asistencia *asist, unsigned int cantCliente) {
-    cout << path+fecha+"asistencia_IRI.dat" << endl;
+
     ofstream archi(path+fecha+"asistencia_IRI.dat", ios::binary);
     if (archi.is_open()) {
         for (unsigned int i = 0; i < cantCliente; i++) {
