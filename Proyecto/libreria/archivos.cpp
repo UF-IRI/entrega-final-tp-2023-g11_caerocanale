@@ -1,9 +1,14 @@
 #include "archivos.h"
+const str path = "../../Proyecto/Dataset_TP/";
+
+time_t t = time(nullptr);
+tm* now = localtime(&t);
+str fecha = to_string(now->tm_year+1900) + to_string(now->tm_mon+1) + to_string(now->tm_wday);
+
 
 int resizea(Asistencia ** asist, int tam){
 
     Asistencia *nueva = new Asistencia[tam+1];
-
     for (int i = 0; i <tam; i++)
         nueva[i] = *asist[i];
 
@@ -87,7 +92,7 @@ code control(Asistencia &asist, Clase *&clase){
 
 code lecturaClases(Clase ** clases, unsigned int &tam){
 
-    ifstream arch("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
+    ifstream arch(path+"iriClasesGYM.csv");
     string linea;
     char del = ',';
 
@@ -104,7 +109,7 @@ code lecturaClases(Clase ** clases, unsigned int &tam){
         if (aux==nullptr)
             return code::ARCHIVOFALLO;
 
-        arch.open("../../Proyecto/Dataset_TP/iriClasesGYM.csv");
+        arch.open(path+"iriClasesGYM.csv");
         getline(arch, linea);
 
         int i =0;
@@ -137,7 +142,7 @@ code lecturaClases(Clase ** clases, unsigned int &tam){
 }
 code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
 
-    ifstream arch("../../Proyecto/Dataset_TP/iriClientesGYM.csv");
+    ifstream arch(path+"iriClientesGYM.csv");
     string linea;
     char del = ',';
 
@@ -156,7 +161,7 @@ code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
         if (aux==nullptr)
             return code::ARCHIVOFALLO;
 
-        arch.open("../../Proyecto/Dataset_TP/iriClientesGYM.csv");
+        arch.open(path+"iriClientesGYM.csv");
         getline(arch, linea);
         int i = 0;
 
@@ -199,15 +204,15 @@ code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
 
 code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases) {
 
-    ifstream arch("../../Proyecto/Dataset_TP/asistencias_1697673600000.dat", ios::binary);
-    unsigned int i =0;
+    ifstream arch(path+fecha+"asistencia_IRI.dat", ios::binary);
+    //asistencias_1697673600000.dat
 
     if (arch.is_open()) {
         Asistencia *aux = new Asistencia[cantCliente];
         if(aux==nullptr)
             return code::ARCHIVOFALLO;
 
-        while (!arch.eof()) {
+        for (unsigned int i=0; i < cantCliente; i++){
 
             arch.read((char*)(&aux[i].idCliente), sizeof(unsigned int));
             arch.read((char*)(&aux[i].cantClases), sizeof(unsigned int));
@@ -219,12 +224,9 @@ code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases
                 arch.read((char*)(&aux[i].clases[j]), sizeof(Inscripcion));
                 clases[aux[i].clases[j].idCurso-1].cupoActual++;
             }
-            // code e = control(aux[i], clases);
-            i++;
+             code e = control(aux[i], clases);
         }
 
-        if (cantCliente != i)
-            cout << "diferencia de usuarios y asistencias por " << (int)i-(int)cantCliente << " usuarios" << endl;
         arch.close();
         delete[]* asist;
         *asist = aux;
@@ -233,11 +235,29 @@ code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases
     }
     return code::ARCHIVOFALLO;
 }
+
+
+code escribirAsistencia(Asistencia *asist, unsigned int cantCliente) {
+    cout << path+fecha+"asistencia_IRI.dat" << endl;
+    ofstream archi(path+fecha+"asistencia_IRI.dat", ios::binary);
+    if (archi.is_open()) {
+        for (unsigned int i = 0; i < cantCliente; i++) {
+            archi.write((char*)&asist[i].idCliente, sizeof(unsigned int));
+            archi.write((char*)&asist[i].cantClases, sizeof(unsigned int));
+            for (unsigned int j = 0; j < asist[i].cantClases; j++)
+                archi.write((char*)&asist[i].clases[j], sizeof(Inscripcion));
+        }
+        archi.close();
+        return code::EXITO;
+    } else {
+        return code::ARCHIVOFALLO;
+    }
+}
 void errores(code codigo){
     ifstream arch;
     string line;
     int i=-1;
-    arch.open("../../Proyecto/Dataset_TP/codigosErrores.txt");
+    arch.open(path+"codigosErrores.txt");
 
     if (arch.is_open()){
         do{

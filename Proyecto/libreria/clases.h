@@ -13,7 +13,7 @@ struct sclases {
     unsigned int id;
     str nombre;
     float horario;
-    unsigned int cupoActual;
+    unsigned int cupoActual = 0;
 }; typedef sclases Clase;
 
 typedef enum eCode code;

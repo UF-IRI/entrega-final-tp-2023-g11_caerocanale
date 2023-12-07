@@ -24,7 +24,13 @@ code anotarClase (Clase *clase, Asistencia &asist, unsigned int idClase){
         }
 
         clase[idClase-1].cupoActual++;
-        asist.cantClases = (unsigned int)resizei (&asist.clases, asist.cantClases);
+
+        if(asist.cantClases==0){
+            asist.cantClases++;
+            asist.clases = new Inscripcion[1];
+        }else{
+            asist.cantClases = (unsigned int)resizei (&asist.clases, asist.cantClases);
+        }
 
         asist.clases[asist.cantClases -1].idCurso = idClase;
         asist.clases[asist.cantClases -1].fechaInscripcion = time(nullptr);

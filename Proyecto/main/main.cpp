@@ -131,6 +131,7 @@ int main() {
     //eliminar el de inscripciones
     return 0;
     */
+
     Clase *clase =  new Clase[1];
     unsigned int tam =0;
 
@@ -143,14 +144,18 @@ int main() {
 
     cout << endl << endl;
     Usuario *usu = new Usuario[1];
-    unsigned int clientes=0;
-    error = lecturaClientes(&usu, clientes);
+     Usuario nuevo = {1, "Canale", "Lautaro", "laezca@gmail", "11232233", "2-12-2003", 0};
+    usu[0] = nuevo;
+    Asistencia *asi = new Asistencia[1];
+    asi[0].idCliente = 1;
+    unsigned int cantClientes = 1;
+
+    error = anotarClase(clase, asi[0],5);
+    errores(error);
+
+    error = leerAsistencia(&asi, cantClientes, clase);
 
     errores(error);
 
-    for (int i = 0; i < 10 ; i++)
-        cout << usu[i].id << "\t" << usu[i].apellido << endl;
 
-    delete []usu;
-    delete []clase;
 }
