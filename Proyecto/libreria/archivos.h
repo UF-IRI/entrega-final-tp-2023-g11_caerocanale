@@ -26,5 +26,6 @@ int redui(Inscripcion **ins, int tam);
 void errores(code codigo);
 
 code escribirAsistencia(Asistencia *asist, unsigned int cantCliente);
+code escribirUsuario(Usuario usuario);
 #endif // ARCHIVO_H
 

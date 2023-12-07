@@ -13,6 +13,8 @@ int resizea(Asistencia ** asist, int tam){
     for (int i = 0; i <tam; i++)
         nueva[i] = *asist[i];
 
+    for (int i = 0; i<(int)tam; i++)
+        delete [] asist[i]->clases;
     delete []*asist;
     *asist = nueva;
     return tam+1;
@@ -202,6 +204,21 @@ code lecturaClientes(Usuario ** cliente , unsigned int &cantCliente){
     return code::ARCHIVOFALLO;
 }
 
+code escribirUsuario(Usuario usuario){
+
+    ofstream archClientes(path+"iriClientesGYM.csv", ios::app); // Abre el archivo y escribe al final
+
+    if (archClientes.is_open()) {
+        // Escribe los datos del usuario en el archivo CSV
+        archClientes << usuario.id << "," << usuario.apellido << "," << usuario.nombre << "," << usuario.email << ","
+                     << usuario.telefono << "," << usuario.nac << "," << usuario.cuota << "\n";
+        archClientes.close();
+
+        return code::EXITO;
+    }
+    else
+        return code::ARCHIVOFALLO;
+}
 code leerAsistencia( Asistencia **asist, unsigned int cantCliente, Clase *clases) {
 
     ifstream arch(path+fecha+"asistencia_IRI.dat", ios::binary);
