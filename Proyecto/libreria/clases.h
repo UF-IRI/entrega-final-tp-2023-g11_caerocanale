@@ -19,11 +19,11 @@ struct sclases {
 typedef enum eCode code;
 
 
-code anotarClase (Clase *&clases, Asistencia &asist, unsigned int idClase);
-code bajarClase (Clase *&clases, Asistencia &asist, unsigned int idClase);
-int BuscarIdClases(Clase *clases, int horario, str nombre);
+code anotarClase (Clase *clases, Asistencia &asist, unsigned int idClase);
+code bajarClase (Clase *clases, Asistencia &asist, unsigned int idClase);
 bool espacio(Clase clase, unsigned int h);
-unsigned int cupoactual(Clase *& clases, unsigned int idclase, unsigned int cantAsistencias);
+int BuscarIdClases(Clase *clases, float horario, str nombre);
+unsigned int cupoactual(Asistencia *asist, unsigned int idclase, unsigned int cantAsistencias);
 
 
 #endif // CLASES_H

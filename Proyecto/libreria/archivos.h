@@ -21,6 +21,7 @@ int resizea(Asistencia ** asist, int tam);
 int resizei(Inscripcion **ins, int tam);
 int resizec(Clase **clases, int tam);
 int resizeu(Usuario **usu, int tam);
+int redui(Inscripcion **ins, int tam);
 
 void errores(code codigo);
 

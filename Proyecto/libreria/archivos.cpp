@@ -4,9 +4,9 @@ int resizea(Asistencia ** asist, int tam){
 
     Asistencia *nueva = new Asistencia[tam+1];
 
-    for (int i = 0; i <tam; i++){
+    for (int i = 0; i <tam; i++)
         nueva[i] = *asist[i];
-    }
+
     delete []*asist;
     *asist = nueva;
     return tam+1;
@@ -15,13 +15,25 @@ int resizei(Inscripcion **ins, int tam){
 
     Inscripcion *nueva = new Inscripcion[tam+1];
 
-    for (int i = 0; i <tam; i++){
+    for (int i = 0; i <tam; i++)
         nueva[i] = *ins[i];
 
-    }
+
     delete[] *ins;
     *ins = nueva;
     return tam+1;
+}
+
+int redui(Inscripcion **ins, int tam){
+    Inscripcion *nueva = new Inscripcion[tam-1];
+
+    for (int i = 0; i <tam; i++)
+        nueva[i] = *ins[i];
+
+
+    delete[] *ins;
+    *ins = nueva;
+    return tam-1;
 }
 
 int resizec(Clase **clases, int tam){
@@ -45,12 +57,11 @@ int resizeu(Usuario **usu, int tam){
 
     Usuario *nueva = new Usuario[tam+1];
 
-    for (int i = 0; i <tam; i++){
+    for (int i = 0; i <tam; i++)
         nueva[i] = *usu[i];
-    }
+
 
     delete []*usu;
-
     *usu = nueva;
 
     return tam+1;
