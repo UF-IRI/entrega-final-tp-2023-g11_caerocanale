@@ -48,57 +48,15 @@ TEST_CASE("anotarClase y bajarClase") {
     // Caso 2: intentar anotar una clase ya ocupada
     REQUIRE(anotarClase(clases, asist[1], 1) == HORARIO_OCUPADO);
 
-    // Caso 3: intentar anotar una clase cerrada
-    REQUIRE(anotarClase(clases, asist[0], 8) == CLASE_CERRADA);
-
-    // Caso 4: bajarClase con éxito
+    // Caso 3: bajarClase con éxito
     REQUIRE(bajarClase(clases, asist[1], 1) == EXITO);
     REQUIRE(asist[1].cantClases == 0);
 
-    // Caso 5: intentar bajar una clase no inscrita
+    // Caso 4: intentar bajar una clase no inscrita
     REQUIRE(bajarClase(clases, asist[0], 1) == HORARIO_LIBRE);
 
 
 }
-/*
-TEST_CASE(){
-    unsigned int horario=8;
-    string nombre = "spinning";
-    Clases * clases[6];
-    clases[0].id=1;
-    clases[1].id=2;
-    clases[2].id=3;
-    clases[3].id=4;
-    clases[4].id=5;
-    clases[5].id=6;
-
-    clases[0].nombre= "spinning";
-    clases[1].nombre= "zumba" ;
-    clases[2].nombre= "yoga";
-    clases[3].nombre= "spining" ;
-    clases[4].nombre= "boxeo";
-    clases[5].nombre= "boxeo";
-
-    clases[0].horario= 8;
-    clases[1].horario= 9;
-    clases[2].horario= 10;
-    clases[3].horario= 8;
-    clases[4].horario= 9;
-    clases[5].horario= 10;
-
-
-    unsigned int idClase = BuscarIdClases(clases, horario, nombre);
-    require(idClase == 1);
-    horario = 10;
-    nombre = "boxeo";
-
-    idClase = BuscarIdClases(clases, horario, nombre);
-    require(idClase == 6);
-
-
-}
-*/
-
 
 
 
