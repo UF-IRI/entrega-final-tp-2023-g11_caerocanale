@@ -9,7 +9,7 @@ int main() {
 
     Clase* clases = new Clase[1];
     Usuario * cliente = new Usuario[1];
-    Asistencia* asist = new Asistencia[1];
+
     unsigned int cantCliente =0;
     unsigned int tam=0;
     code error;
@@ -22,7 +22,7 @@ int main() {
     error = lecturaClientes(&cliente,cantCliente);
     errores(error);
 
-
+    Asistencia* asist = new Asistencia[cantCliente];
     error = leerAsistencia(&asist, cantCliente, clases);
     errores(error);
 
