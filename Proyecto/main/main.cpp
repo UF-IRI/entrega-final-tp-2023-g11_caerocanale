@@ -85,7 +85,7 @@ int main() {
                 }while (seguridad);
                     break;
 
-                case 2:
+                case 2: //EN CASO DE NO FUNCIONAR ELIMINAR
                 {
                     Usuario nuevo;
                     string apellido, nombre;
